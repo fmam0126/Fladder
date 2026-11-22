@@ -3,6 +3,7 @@ package nl.jknaapen.fladder
 import BatteryOptimizationPigeon
 import FlutterError
 import LocalNetworkPermissionPigeon
+import MediaCodecCapabilitiesPigeon
 import NativeVideoActivity
 import PlayerSettingsPigeon
 import StartResult
@@ -26,6 +27,7 @@ import io.flutter.embedding.engine.FlutterEngine
 import nl.jknaapen.fladder.objects.PlayerSettingsObject
 import nl.jknaapen.fladder.objects.TranslationsMessenger
 import nl.jknaapen.fladder.objects.VideoPlayerObject
+import nl.jknaapen.fladder.utility.MediaCodecCapabilities
 import nl.jknaapen.fladder.utility.leanBackEnabled
 import androidx.core.net.toUri
 import nl.jknaapen.fladder.wallpaper.WallpaperApi
@@ -81,6 +83,11 @@ class MainActivity : AudioServiceFragmentActivity(), NativeVideoActivity {
                     startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
                 }
             }
+        )
+
+        MediaCodecCapabilitiesPigeon.setUp(
+            flutterEngine.dartExecutor.binaryMessenger,
+            api = MediaCodecCapabilities
         )
 
         LocalNetworkPermissionPigeon.setUp(

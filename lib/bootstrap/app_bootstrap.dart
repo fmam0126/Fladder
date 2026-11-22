@@ -12,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fladder/models/settings/arguments_model.dart';
 import 'package:fladder/providers/crash_log_provider.dart';
 import 'package:fladder/providers/shared_provider.dart';
+import 'package:fladder/services/media_codec_capabilities.dart';
 import 'package:fladder/src/video_player_helper.g.dart';
 import 'package:fladder/util/application_info.dart';
 import 'package:fladder/util/fladder_config.dart';
@@ -57,6 +58,7 @@ Future<AppBootstrapResult> bootstrapApplication(List<String> args) async {
   final sharedPreferences = await SharedPreferences.getInstance();
   final leanBackEnabled = await resolveLeanBackEnabled() || _storedLeanBackMode(sharedPreferences);
   final lowResourceDevice = await resolveLowResourceDevice();
+  await MediaCodecCapabilities.load();
 
   var windowArguments = '';
   if (isDesktopPlatform) {
